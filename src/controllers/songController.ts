@@ -1,15 +1,15 @@
 import { Router } from 'express'
 import { Song } from '../models/song'
 
-export const authorRouter = Router()
+export const songRouter = Router()
 
-authorRouter.delete('/:id', async(req, res) => {
+songRouter.delete('/:id', async(req, res) => {
     const a = req.params.id
 
     res.status(200).json({msg: 'song ' + a + ' deleted.'})
 })
 
-authorRouter.post('/', async(req, res) => {
+songRouter.post('/', async(req, res) => {
     const a = req.body
 
     if(!a.name) {
@@ -27,7 +27,7 @@ authorRouter.post('/', async(req, res) => {
     res.status(200).json(song)
 })
 
-authorRouter.get('/', async(req, res) => {
+songRouter.get('/', async(req, res) => {
     console.log(req.params.name)
     // TODO search for song by id on DB
 
