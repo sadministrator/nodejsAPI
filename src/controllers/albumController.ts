@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import { Album } from '../models/album'
+//import { Album } from '../models/album'
+const Album = require('../models/album')
 
 export const albumRouter = Router()
 

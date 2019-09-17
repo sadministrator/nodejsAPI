@@ -1,10 +1,15 @@
-import { Song } from './song'
-import { Artist } from './artist'
+import mongoose from 'mongoose'
+const SongSchema = require('./song').schema
+const ArtistSchema = require('./artist').schema
 
-export interface Album {
-    id: string,
-    name: string,
-    year: number,
-    //artist: Artist
-    //songs: Song[]
-}
+const Schema = mongoose.Schema
+
+const AlbumSchema = new Schema({
+    id: String,
+    name: String,
+    year: Number,
+    artist: ArtistSchema,
+    song: SongSchema
+})
+
+module.exports = mongoose.model('Album', AlbumSchema)

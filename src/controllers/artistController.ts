@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import { Artist } from '../models/artist'
+//import { Artist } from '../models/artist'
+const Artist = require('../models/artist')
 
 export const artistRouter = Router()
 

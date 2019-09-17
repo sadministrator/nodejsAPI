@@ -1,4 +1,10 @@
-export interface Song {
-    id: string,
-    name: string
-}
+import mongoose from 'mongoose'
+
+const Schema = mongoose.Schema
+
+const SongSchema = new Schema({
+    id: String,
+    name: String
+})
+
+module.exports = mongoose.model('Song', SongSchema)

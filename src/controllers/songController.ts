@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import { Song } from '../models/song'
+//import { Song } from '../models/song'
+const Song = require('../models/Song')
 
 export const songRouter = Router()
 
