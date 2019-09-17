@@ -1,7 +1,10 @@
 import { Song } from './song'
+import { Artist } from './artist'
 
 export interface Album {
-    name: String,
-    year: Number,
-    songs: Song[]
+    id: string,
+    name: string,
+    year: number,
+    //artist: Artist
+    //songs: Song[]
 }
