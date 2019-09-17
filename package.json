@@ -22,7 +22,13 @@
     "url": "https://github.com/sadministrator/nodejsAPI/issues"
   },
   "homepage": "https://github.com/sadministrator/nodejsAPI#readme",
+  "devDependencies": {
+    "typescript": "^3.63",
+    "tslint": "^5.20.0",
+    "@types/express": "^4.17.1"
+  },
   "dependencies": {
+    "@types/express": "^4.17.1",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "mongoose": "^5.7.1"
