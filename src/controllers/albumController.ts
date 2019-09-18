@@ -1,5 +1,4 @@
 import { Router } from 'express'
-//import { Album } from '../models/album'
 const Album = require('../models/album')
 
 export const albumRouter = Router()
@@ -17,16 +16,7 @@ albumRouter.post('/', async(req, res) => {
         res.status(400).json({})
         return
     }
-
-    let album: Album = {
-        id: '222',
-        name: req.body.name,
-        year: 1969
-    }
-
-    // TODO insert album into DB
-
-    res.status(200).json(album)
+    res.status(200).json({msg: 'Nothing to see here.'})
 })
 
 albumRouter.get('/:id', async(req, res) => {
@@ -34,12 +24,7 @@ albumRouter.get('/:id', async(req, res) => {
     // TODO search album by name in DB
 
     if(req.params.id === '222') {
-        let album: Album = {
-            id: '222',
-            name: 'Revolver',
-            year: 1969            
-        }
-        res.status(200).json(album)
+        res.status(200).json({msg: 'Nothing to see here.'})
     } else {
         res.status(400).json({error: 'Author not found.'})
     }

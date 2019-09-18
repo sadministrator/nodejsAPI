@@ -1,5 +1,4 @@
 import { Router } from 'express'
-//import { Artist } from '../models/artist'
 const Artist = require('../models/artist')
 
 export const artistRouter = Router()
@@ -17,15 +16,7 @@ artistRouter.post('/', async(req, res) => {
         res.status(400).json({})
         return
     }
-
-    let artist: Artist = {
-        id: '333',
-        name: req.body.name
-    }
-
-    // TODO insert artist into DB
-
-    res.status(200).json(artist)
+    res.status(200).json({msg: 'Nothing to see here.'})
 })
 
 artistRouter.get('/', async(req, res) => {
@@ -33,12 +24,9 @@ artistRouter.get('/', async(req, res) => {
     // TODO search for artist by id on DB
 
     if(req.params.id === '111') {
-        let artist: Artist = {
-            id: "111",
-            name: "Los Angeles"
-        }
-        res.status(200).json(artist)
+        res.status(200).json({msg: 'Nothing to see here.'})
     } else {
         res.status(400).json({error: 'Artist not found.'})
     }
 })
+

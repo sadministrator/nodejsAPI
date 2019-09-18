@@ -1,6 +1,5 @@
 import { Router } from 'express'
-//import { Song } from '../models/song'
-const Song = require('../models/Song')
+const Song = require('../models/song')
 
 export const songRouter = Router()
 
@@ -17,15 +16,7 @@ songRouter.post('/', async(req, res) => {
         res.status(400).json({})
         return
     }
-
-    let song: Song = {
-        id: '111',
-        name: req.body.name
-    }
-
-    // TODO insert song into DB
-
-    res.status(200).json(song)
+    res.status(200).json({msg: 'Nothing to see here.'})
 })
 
 songRouter.get('/', async(req, res) => {
@@ -33,11 +24,7 @@ songRouter.get('/', async(req, res) => {
     // TODO search for song by id on DB
 
     if(req.params.id === '111') {
-        let song: Song = {
-            id: "111",
-            name: "Los Angeles"
-        }
-        res.status(200).json(song)
+        res.status(200).json({msg: 'Nothing to see here.'})
     } else {
         res.status(400).json({error: "Song not found."})
     }

@@ -1,15 +1,13 @@
-import mongoose from 'mongoose'
-const SongSchema = require('./song').schema
-const ArtistSchema = require('./artist').schema
+import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
+const ArtistSchema = require('./artist').schema;
+const SongSchema = require('./song').schema;
 
-const Schema = mongoose.Schema
-
-const AlbumSchema = new Schema({
-    id: String,
+const AlbumSchema = Schema({
     name: String,
     year: Number,
     artist: ArtistSchema,
-    song: SongSchema
-})
+    song: SongSchema,
+});
 
-module.exports = mongoose.model('Album', AlbumSchema)
+module.exports = mongoose.model('Album', AlbumSchema);
