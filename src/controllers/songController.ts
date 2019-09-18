@@ -3,29 +3,23 @@ const Song = require('../models/song')
 
 export const songRouter = Router()
 
-songRouter.delete('/:id', async(req, res) => {
-    const a = req.params.id
+songRouter.get('/', async(req, res) => {
+    Song.find((err, songs) => {
+        if (err) return res.status(400).send({err});
+        res.json(songs);
+    });
+});
 
-    res.status(200).json({msg: 'song ' + a + ' deleted.'})
+songRouter.get('/:id', async(req, res) => {
+    Song.findById(req.params.id, (err, songs) => {
+        if(err) return res.status(400).send({err})
+        return res.status(200).send(songs)
+    })
 })
 
 songRouter.post('/', async(req, res) => {
-    const a = req.body
-
-    if(!a.name) {
-        res.status(400).json({})
-        return
-    }
-    res.status(200).json({msg: 'Nothing to see here.'})
-})
-
-songRouter.get('/', async(req, res) => {
-    console.log(req.params.name)
-    // TODO search for song by id on DB
-
-    if(req.params.id === '111') {
-        res.status(200).json({msg: 'Nothing to see here.'})
-    } else {
-        res.status(400).json({error: "Song not found."})
-    }
+    Song.create(req.body, (err, post) => {
+        if(err) return res.status(400).send({err})
+        return res.json(post)
+    })
 })
