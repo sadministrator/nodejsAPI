@@ -7,7 +7,6 @@ const AlbumSchema = Schema({
     name: String,
     year: Number,
     artist: ArtistSchema,
-    song: SongSchema,
 });
 
 module.exports = mongoose.model('Album', AlbumSchema);

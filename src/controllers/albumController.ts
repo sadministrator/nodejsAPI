@@ -1,31 +1,57 @@
 import { Router } from 'express'
 const Album = require('../models/album')
+const Artist = require('../models/artist')
 
 export const albumRouter = Router()
 
-albumRouter.delete('/:id', async(req, res) => {
-    const a = req.params.id
+albumRouter.get('/', async (req, res) => {
+    Album.find((err, albums) => {
+        if (err) return res.status(400).send({ err });
+        res.status(200).json(albums);
+    });
+});
 
-    res.status(200).json({'msg': 'album ' + a + ' deleted.'})
+albumRouter.get('/:id', async (req, res) => {
+    Album.findById(req.params.id, (err, albums) => {
+        if (err) return res.status(400).send({ err })
+        return res.status(200).send(albums)
+    })
 })
 
-albumRouter.post('/', async(req, res) => {
-    const a = req.body
-
-    if(!name) {
-        res.status(400).json({})
-        return
+albumRouter.post('/', async (req, res) => {
+    let album = new Album()
+    if (req.body.name) album.name = req.body.name
+    if (req.body.artistId) {
+        album.artistId = req.body.artistId
+        Artist.findById(album.artistId, (err, artist) => {
+            if (err) return res.status(400).send({ err })
+            if (!artist) return res.status(400).send({ err })
+            else {
+                album.artist = artist
+                album.save((err, saved) => {
+                    if (err) return res.status(400).send({ err })
+                    if (saved) return res.status(200).send("Success.")
+                })
+            }
+        })
     }
-    res.status(200).json({msg: 'Nothing to see here.'})
 })
 
-albumRouter.get('/:id', async(req, res) => {
-    console.log(req.params.name)
-    // TODO search album by name in DB
+albumRouter.patch('/:id', async (req, res) => {
+    Album.findById(req.params.id, (err, album) => {
+        if (err) return res.status(400).send({ err })
+        for (let b in req.body) {
+            album[b] = req.body[b]
+        }
+        album.save()
+        return res.status(200).json(album)
+    })
+})
 
-    if(req.params.id === '222') {
-        res.status(200).json({msg: 'Nothing to see here.'})
-    } else {
-        res.status(400).json({error: 'Author not found.'})
-    }
+albumRouter.delete('/:id', async (req, res) => {
+    Album.findById(req.params.id, (err, album) => {
+        if (err) return res.status(500).send({ err })
+        album.remove()
+        return res.status(200).send('Album removed.')
+    })
 })
