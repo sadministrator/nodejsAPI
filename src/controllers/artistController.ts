@@ -3,30 +3,42 @@ const Artist = require('../models/artist')
 
 export const artistRouter = Router()
 
-artistRouter.delete('/:id', async(req, res) => {
-    const a = req.params.id
+artistRouter.get('/', async(req, res) => {
+    Artist.find((err, artists) => {
+        if (err) return res.status(400).send({err});
+        res.status(200).json(artists);
+    });
+});
 
-    res.status(200).json({msg: 'artist ' + a + ' deleted.'})
+artistRouter.get('/:id', async(req, res) => {
+    Artist.findById(req.params.id, (err, artists) => {
+        if(err) return res.status(400).send({err})
+        return res.status(200).send(artists)
+    })
 })
 
 artistRouter.post('/', async(req, res) => {
-    const a = req.body
-
-    if(!a.name) {
-        res.status(400).json({})
-        return
-    }
-    res.status(200).json({msg: 'Nothing to see here.'})
+    Artist.create(req.body, (err, post) => {
+        if(err) return res.status(400).send({err})
+        return res.status(201).json(post)
+    })
 })
 
-artistRouter.get('/', async(req, res) => {
-    console.log(req.params.name)
-    // TODO search for artist by id on DB
-
-    if(req.params.id === '111') {
-        res.status(200).json({msg: 'Nothing to see here.'})
-    } else {
-        res.status(400).json({error: 'Artist not found.'})
-    }
+artistRouter.patch('/:id', async(req, res) => {
+    Artist.findById(req.params.id, (err, artist) => {
+        if(err) return res.status(400).send({err})
+        for(let b in req.body) {
+            artist[b] = req.body[b]
+        }
+        artist.save()
+        return res.status(200).json(artist)
+    })
 })
 
+artistRouter.delete('/:id', async(req, res) => {
+    Artist.findById(req.params.id, (err, artist) => {
+        if(err) return res.status(500).send({err})
+        artist.remove()
+        return res.status(200).send('Artist removed.')
+    })
+})
